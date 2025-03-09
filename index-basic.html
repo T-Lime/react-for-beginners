@@ -8,21 +8,32 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.getElementById("root");
-        const Title = ()=> (
+        const Title = (
             <h3 id="title" onMouseEnter={()=> console.log("mouse enter")}>
                 Hello I'm a h3
             </h3>
         );
+        /* 
+        const h3 = React.createElement("h3", {
+            id : "title",
+            onMouseEnter : ()=> console.log('mouse enter'),
+        }, "Hello I'm a span" ); //createElement("태그이름", {만들 속성명:"속성값"}, 해당 콘텐츠) */
 
-        const Button = ()=> (
+        const Button = (
             <button 
             onClick={()=> console.log("im clicked")} 
             style={{backgroundColor:"tomato"}}>
             Click me
             </button>
         );
-   
-        const Container = ()=> (<div><Title/><Button/></div>);
-        ReactDOM.render(<Container/>, root);
+
+       /*  const btn = React.createElement("button", {
+            onClick: ()=> console.log('im clicked'),
+            style :{
+                backgroundColor:"tomato"
+            },
+        }, "Click me"); */
+        const container = React.createElement("div", null, [Title, Button]); // 2가지 이상 변수(태그)를 사용하고 싶어서 만든 div
+        ReactDOM.render(container, root);
     </script>
 </html>
