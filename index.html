@@ -1,27 +1,118 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div id="root"></div>
-</body>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script type="text/babel">
-        const root = document.getElementById("root");
-        
-        function App() {
-            const [counter, setCounter] = React.useState(0);
-            const onClick = () =>{
-              //  setCounter(counter + 1);
-              setCounter(current => current + 1);
-            };
-         return(
-            <div>
-                <h3>Total clicks: {counter}</h3>
-                <button onClick={onClick}>Click me </button>
-            </div>
-        );
-        }
-        ReactDOM.render(<App/>, root);
-    </script>
+  </body>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function MinutesToHours() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              disabled={!inverted}
+              onChange={onChange}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+      );
+    }
+    function CmInches() {
+      const [centimeters, setCentimeters] = React.useState(0);
+      const [inches, setInches] = React.useState(false);
+      const onChange = (event) => setCentimeters(event.target.value);
+      const reset = () => setCentimeters(0);
+      const onFlip = () => {
+        reset();
+        setInches((current) => !current);
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="centimeter">Centimeter</label>
+            <input
+              value={inches ? centimeters * 2.54 : centimeters}
+              id="centimeter"
+              placeholder="Centimeter"
+              type="number"
+              onChange={onChange}
+              disabled={inches}
+            />
+          </div>
+          <div>
+            <label htmlFor="inch">Inch</label>
+            <input
+              value={inches ? centimeters : centimeters / 2.54}
+              id="inch"
+              placeholder="Inch"
+              type="number"
+              disabled={!inches}
+              onChange={onChange}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>{inches ? "Turn back" : "Invert"}</button>
+        </div>
+      );
+    }
+    function App() {
+      const [index, setIndex] = React.useState("xx");
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      console.log("render w/", index);
+      return (
+        <div>
+          <h1>CALCULATOR</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="xx">Select your units</option>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Cm & Inche</option>
+          </select>
+          <hr />
+          {index === "xx" ? "Please select your uinits" : null}
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <CmInches /> : null}
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
 </html>

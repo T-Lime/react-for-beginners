@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  background-color: lightsteelblue;
+}
+
+#root {
+  top: 50%;
+}
+
+h1 {
+  color: white;
+  font-size: 3em;
+}
+
+select {
+  width: 10em;
+  height: 3em;
+  background-color: steelblue;
+  color: white;
+  border: none;
+}
+
+input {
+  border: none;
+  width: 10em;
+  height: 2em;
+  margin: 0.5em;
+}
+
+button {
+  width: 5em;
+  padding: 0.5em 0em;
+  border: none;
+  margin: 0.8em;
+  background-color: lightblue;
+  color: white;
+}
+
+button:hover {
+  background-color: paleturquoise;
+}
